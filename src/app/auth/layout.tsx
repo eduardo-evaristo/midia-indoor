@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import Navbar from "@/components/Navbar";
 import { auth } from "../../../auth";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { GithubIcon } from "lucide-react";
+import { login } from "@/lib/actions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +34,18 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        {children}
+        <main className="flex justify-center items-center h-screen">
+          <div className="flex flex-col gap-5 w-[90%] sm:w-96 shadow p-4">
+            {children}
+            <Separator />
+            <form>
+              <Button type="submit" formAction={login} className="w-full">
+                <GithubIcon />
+                Continue with Github
+              </Button>
+            </form>
+          </div>
+        </main>
       </body>
     </html>
   );

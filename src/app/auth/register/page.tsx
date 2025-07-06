@@ -1,23 +1,23 @@
 "use client";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+// } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
-import { AlertCircleIcon, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { createUser } from "@/lib/actions";
 import Link from "next/link";
 import { useActionState } from "react";
-import { Alert, AlertTitle } from "@/components/ui/alert";
+import FormField from "@/components/auth/FormField";
 
 // export default function Page() {
 //   const form = useForm<z.infer<typeof formSchema>>({
@@ -76,32 +76,37 @@ export default function Page() {
   });
 
   return (
-    <main className="flex justify-center items-center h-screen">
-      <div className="flex flex-col gap-4 w-[90%] sm:w-80 shadow p-4">
-        <h1>Create your account</h1>
-        <form className="flex flex-col gap-2" action={formAction}>
-          <Label htmlFor="email">Email</Label>
-          <Input type="email" name="email" />
+    <>
+      <h2 className="text-center text-3xl scroll-m-20 font-extrabold text-balance">
+        Create your account
+      </h2>
+      <form className="flex flex-col gap-2" action={formAction}>
+        <FormField name="email" type="email">
+          Email
+        </FormField>
 
-          <Label htmlFor="password">Password</Label>
-          <Input type="password" name="password" />
+        <FormField name="password" type="password" minLength={8} maxLength={50}>
+          Password
+        </FormField>
 
-          <Label htmlFor="confirmPassword">Confirm Password</Label>
-          <Input type="password" name="confirmPassword" />
+        <FormField
+          name="confirmPassword"
+          type="password"
+          minLength={8}
+          maxLength={50}
+        >
+          Confirm password
+        </FormField>
 
-          <Separator />
-          <Button type="submit" disabled={pending}>
-            {pending ? "Creating account..." : "Create an account"}
-          </Button>
-        </form>
-        <Button variant="secondary" asChild>
+        <Separator className="my-2.5" />
+
+        <Button type="submit" disabled={pending}>
+          {pending ? "Creating account..." : "Create an account"}
+        </Button>
+        <Button variant="secondary" type="button" asChild>
           <Link href="/auth/login">Already have an account?</Link>
         </Button>
-        <Separator />
-        <Button disabled={pending}>
-          <Github />
-        </Button>
-      </div>
-    </main>
+      </form>
+    </>
   );
 }
