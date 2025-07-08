@@ -1,3 +1,5 @@
+"use server";
+
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn, signOut } from "@/../auth";
@@ -60,5 +62,3 @@ export async function createUser(state, formData: FormData) {
   // Upon success, redirect users to index
   redirect("/");
 }
-
-export async function logUser(state: any, formData: FormData) {}
