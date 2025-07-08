@@ -1,9 +1,16 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
+import ClientButton from "./ClientButton";
+import { Session } from "next-auth";
+import { login, logout } from "@/app/auth/lib/actions";
 
-export default function Navbar() {
+type Props = {
+  session: Session | null;
+};
+
+export default function Navbar({ session }: Props) {
   return (
-    <nav className="bg-background h-20 flex justify-between p-4 items-center">
+    <nav className="bg-background h-20 flex justify-between p-4 items-center shadow">
       <div>
         <Image
           src={"vercel.svg"}
@@ -15,13 +22,19 @@ export default function Navbar() {
       </div>
       {/* Not all of these buttons will be present */}
       <div className="flex gap-2">
-        <Button className="text-md" variant="ghost">
-          Devices
-        </Button>
-        <Button className="text-md" variant="ghost">
-          Playlists
-        </Button>
-        <Button className="text-md">Sign up</Button>
+        {session ? (
+          <>
+            <Button className="text-md" variant="ghost">
+              Devices
+            </Button>
+            <Button className="text-md" variant="ghost">
+              Playlists
+            </Button>
+            <ClientButton serverAction={logout} text="Log out" />
+          </>
+        ) : (
+          <ClientButton serverAction={login} text="Log in" />
+        )}
       </div>
     </nav>
   );

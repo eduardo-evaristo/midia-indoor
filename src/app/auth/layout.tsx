@@ -5,7 +5,7 @@ import { auth } from "../../../auth";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { GithubIcon } from "lucide-react";
-import { login } from "@/lib/actions";
+import { login } from "./lib/actions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
