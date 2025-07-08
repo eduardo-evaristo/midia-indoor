@@ -14,8 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { createUser } from "@/lib/actions";
 import { registerSchema, RegisterSchema } from "../lib/schema";
+import { createUser } from "../lib/actions";
 // import FormField from "@/components/auth/FormField";
 
 export default function Page() {
