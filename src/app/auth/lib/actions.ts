@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn, signOut } from "@/../auth";
-import { serverRegisterSchema } from "./schema";
+import { loginSchema, serverRegisterSchema } from "./schema";
 import { insertUser } from "@/lib/db/user";
 
 export async function login() {
@@ -15,14 +15,33 @@ export async function logout() {
 }
 
 export async function loginCredentials(state: any, formData: FormData) {
+  const validatedFields = await loginSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
   const email = formData.get("email");
   const password = formData.get("password");
 
-  await signIn("credentials", {
-    redirectTo: "/",
-    email,
-    password,
-  });
+  // Check for unsuccess
+  if (!validatedFields.success) {
+    console.log(validatedFields.error?.flatten());
+    // And return if needed
+    return {
+      errors: validatedFields.error?.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    return { errors: { general: "Login failed. Please try again." } };
+  }
 }
 
 export async function createUser(state, formData: FormData) {
