@@ -26,6 +26,7 @@ export default async function RootLayout({
 }>) {
   //Next-Auth's session to be passed as props to my Navbar
   const session = await auth();
+  console.log(session);
   return (
     <html lang="en bg-secondary">
       <body
