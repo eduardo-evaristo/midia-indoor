@@ -42,6 +42,7 @@ export async function loginCredentials(state: any, formData: FormData) {
     console.error("Login error:", error);
     return { errors: { general: "Login failed. Please try again." } };
   }
+  redirect("/");
 }
 
 export async function createUser(state, formData: FormData) {

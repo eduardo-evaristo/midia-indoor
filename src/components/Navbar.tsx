@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import ClientButton from "./ClientButton";
 import { Session } from "next-auth";
 import { login, logout } from "@/app/auth/lib/actions";
+import Link from "next/link";
 
 type Props = {
   session: Session | null;
@@ -33,7 +34,14 @@ export default function Navbar({ session }: Props) {
             <ClientButton serverAction={logout} text="Log out" />
           </>
         ) : (
-          <ClientButton serverAction={login} text="Log in" />
+          <>
+            <Button>
+              <Link href="/auth/login">Sign in</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/auth/register">Sign up</Link>
+            </Button>
+          </>
         )}
       </div>
     </nav>
