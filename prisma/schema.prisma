@@ -65,3 +65,19 @@ model VerificationToken {
 
   @@id([identifier, token])
 }
+
+model Midia {
+  id         Int      @id @default(autoincrement())
+  uuid       String   @unique
+  content    String
+  mimetype   String
+  idPlaylist Int
+  Playlist   Playlist @relation(fields: [idPlaylist], references: [id], onDelete: Cascade)
+}
+
+model Playlist {
+  id        Int     @id @default(autoincrement())
+  nome      String  @unique
+  intervalo Int
+  Midia     Midia[]
+}
