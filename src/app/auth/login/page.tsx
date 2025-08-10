@@ -85,7 +85,7 @@ export default function Page() {
             Log in
           </Button>
           <Button variant="secondary" type="button" asChild>
-            <Link href="/auth/login">Don't have an account?</Link>
+            <Link href="/auth/register">Don't have an account?</Link>
           </Button>
         </form>
       </Form>
